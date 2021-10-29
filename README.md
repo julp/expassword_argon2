@@ -30,7 +30,7 @@ Reasonable *options* are:
 ```elixir
 %{
   # the algorithm between :argon2id and :argon2i
-  type: :argon2_id,
+  type: :argon2id,
   # number of threads to use
   threads: 2,
   # maximum amount of time
