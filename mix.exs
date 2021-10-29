@@ -14,7 +14,7 @@ defmodule ExPassword.Argon2.MixProject do
   def project do
     [
       app: :expassword_argon2,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: ~W[argonCmake]a ++ Mix.compilers(),
@@ -59,7 +59,7 @@ defmodule ExPassword.Argon2.MixProject do
 
   defp package() do
     [
-      files: ~W[lib src mix.exs README*],
+      files: ~W[lib src mix.exs CMakeLists.txt README*],
       licenses: ~W[BSD],
       links: %{"GitHub" => "https://github.com/julp/expassword_argon2"},
     ]
