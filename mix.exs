@@ -4,6 +4,7 @@ defmodule Mix.Tasks.Compile.ArgonCmake do
     Mix.shell.info(result)
     {result, 0} = System.cmd("make", ["all"], stderr_to_stdout: true)
     Mix.shell.info(result)
+    Mix.Project.build_structure()
     :ok
   end
 end
@@ -14,7 +15,7 @@ defmodule ExPassword.Argon2.MixProject do
   def project do
     [
       app: :expassword_argon2,
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.6",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: ~W[argonCmake]a ++ Mix.compilers(),
