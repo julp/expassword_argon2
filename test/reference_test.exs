@@ -1,7 +1,7 @@
 if Code.ensure_loaded?(ExPassword.Argon2.Base) do
   defmodule ExPassword.Argon2.ReferenceTest do
     use ExUnit.Case
-    use Bitwise
+    import Bitwise
 
     defp strlen(_x), do: nil # unused
 
@@ -68,19 +68,19 @@ if Code.ensure_loaded?(ExPassword.Argon2.Base) do
 
     test "error states tests for argon2i with version 0x10" do
       # Handle an invalid encoding correctly (it is missing a $)
-      assert_raise ArgumentError, ~R/Decoding failed/i, fn ->
+      assert_raise ArgumentError, ~r/Decoding failed/i, fn ->
         argon2_verify("$argon2i$m=65536,t=2,p=1c29tZXNhbHQ" <>
           "$9sTbSlTio3Biev89thdrlKKiCaYsjjYVJxGAL3swxpQ",
           "password", strlen("password"), :argon2i)
       end
       # Handle an invalid encoding correctly (it is missing a $)
-      assert_raise ArgumentError, ~R/Decoding failed/i, fn ->
+      assert_raise ArgumentError, ~r/Decoding failed/i, fn ->
         argon2_verify("$argon2i$m=65536,t=2,p=1$c29tZXNhbHQ" <>
           "9sTbSlTio3Biev89thdrlKKiCaYsjjYVJxGAL3swxpQ",
           "password", strlen("password"), :argon2i)
       end
       # Handle an invalid encoding correctly (salt is too short) */
-      assert_raise ArgumentError, ~R/Salt is too short/i, fn ->
+      assert_raise ArgumentError, ~r/Salt is too short/i, fn ->
         argon2_verify("$argon2i$m=65536,t=2,p=1$" <>
           "$9sTbSlTio3Biev89thdrlKKiCaYsjjYVJxGAL3swxpQ",
           "password", strlen("password"), :argon2i)
@@ -133,19 +133,19 @@ if Code.ensure_loaded?(ExPassword.Argon2.Base) do
 
     test "error states tests for argon2i with version 0x13" do
       # Handle an invalid encoding correctly (it is missing a $)
-      assert_raise ArgumentError, ~R/Decoding failed/i, fn ->
+      assert_raise ArgumentError, ~r/Decoding failed/i, fn ->
         argon2_verify("$argon2i$v=19$m=65536,t=2,p=1c29tZXNhbHQ" <>
           "$wWKIMhR9lyDFvRz9YTZweHKfbftvj+qf+YFY4NeBbtA",
           "password", strlen("password"), :argon2i)
       end
       # Handle an invalid encoding correctly (it is missing a $)
-      assert_raise ArgumentError, ~R/Decoding failed/i, fn ->
+      assert_raise ArgumentError, ~r/Decoding failed/i, fn ->
         argon2_verify("$argon2i$v=19$m=65536,t=2,p=1$c29tZXNhbHQ" <>
           "wWKIMhR9lyDFvRz9YTZweHKfbftvj+qf+YFY4NeBbtA",
           "password", strlen("password"), :argon2i)
       end
       # Handle an invalid encoding correctly (salt is too short) */
-      assert_raise ArgumentError, ~R/Salt is too short/i, fn ->
+      assert_raise ArgumentError, ~r/Salt is too short/i, fn ->
         argon2_verify("$argon2i$v=19$m=65536,t=2,p=1$" <>
           "$9sTbSlTio3Biev89thdrlKKiCaYsjjYVJxGAL3swxpQ",
           "password", strlen("password"), :argon2i)
@@ -194,12 +194,12 @@ if Code.ensure_loaded?(ExPassword.Argon2.Base) do
 
     test "Common error state tests" do
       version = 0x13
-      assert_raise ArgumentError, ~R/Memory cost is too small/i, fn ->
+      assert_raise ArgumentError, ~r/Memory cost is too small/i, fn ->
         argon2_hash(2, 1, 1, "password", strlen("password"),
           "diffsalt", strlen("diffsalt"),
           :argon2id, version)
       end
-      assert_raise ArgumentError, ~R/Salt is too short/i, fn ->
+      assert_raise ArgumentError, ~r/Salt is too short/i, fn ->
         argon2_hash(2, 12, 1, "password", strlen("password"), "s", 1,
           :argon2id, version)
       end

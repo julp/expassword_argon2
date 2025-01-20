@@ -7,7 +7,7 @@ defmodule ExPassword.Argon2.Base do
   def load_nifs do
     :expassword_argon2
     |> :code.priv_dir()
-    |> :filename.join('argon2_nif')
+    |> :filename.join(~C'argon2_nif')
     |> :erlang.load_nif(0)
     |> case do
       :ok ->
